@@ -25,49 +25,53 @@ def backtrack(subjects, slots, assignment={}):
 @app.route('/')
 def home():
     return '''
+    <!DOCTYPE html>
     <html>
     <head>
         <title>AI Timetable Generator</title>
         <style>
             body {
                 font-family: Arial;
-                background: linear-gradient(to right, #4facfe, #00f2fe);
+                background: linear-gradient(to right, #667eea, #764ba2);
                 text-align: center;
                 color: white;
+                padding-top: 50px;
             }
+
             .box {
                 background: white;
                 color: black;
                 padding: 30px;
-                margin: 50px auto;
+                margin: auto;
                 width: 350px;
-                border-radius: 10px;
-                box-shadow: 0 0 10px gray;
+                border-radius: 12px;
+                box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
             }
+
+            h1 {
+                margin-bottom: 30px;
+            }
+
             input {
                 width: 90%;
                 padding: 10px;
-                margin: 10px;
+                margin: 10px 0;
+                border-radius: 5px;
+                border: 1px solid #ccc;
             }
+
             button {
                 padding: 10px 20px;
-                background: #4facfe;
+                background: #667eea;
                 border: none;
                 color: white;
                 font-size: 16px;
                 border-radius: 5px;
                 cursor: pointer;
             }
-            table {
-                margin: auto;
-                border-collapse: collapse;
-                width: 60%;
-                background: white;
-                color: black;
-            }
-            th, td {
-                padding: 10px;
-                border: 1px solid black;
+
+            button:hover {
+                background: #5a67d8;
             }
         </style>
     </head>
@@ -95,19 +99,69 @@ def generate():
     result = backtrack(subjects, slots)
 
     html = '''
+    <!DOCTYPE html>
     <html>
-    <body style="font-family:Arial; text-align:center; background:#eef2f3;">
-    <h1>Generated Timetable</h1>
-    <table>
-    <tr><th>Subject</th><th>Time Slot</th></tr>
+    <head>
+        <title>Generated Timetable</title>
+        <style>
+            body {
+                font-family: Arial;
+                background: #f4f4f4;
+                text-align: center;
+                padding-top: 40px;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            table {
+                margin: auto;
+                border-collapse: collapse;
+                width: 50%;
+                background: white;
+                box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+            }
+
+            th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
+            }
+
+            th {
+                background: #667eea;
+                color: white;
+            }
+
+            tr:hover {
+                background: #f1f1f1;
+            }
+
+            a {
+                display: inline-block;
+                margin-top: 20px;
+                text-decoration: none;
+                color: #667eea;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Generated Timetable</h1>
+
+        <table>
+            <tr><th>Subject</th><th>Time Slot</th></tr>
     '''
 
     for subject, slot in result.items():
         html += f"<tr><td>{subject}</td><td>{slot}</td></tr>"
 
     html += '''
-    </table>
-    <br><a href="/">Go Back</a>
+        </table>
+
+        <br>
+        <a href="/">⬅ Go Back</a>
     </body>
     </html>
     '''
